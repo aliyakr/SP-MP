@@ -24,7 +24,7 @@ If you want to run the program yourself and/or enter different data, do the foll
   {'title': 'Запись 3', 'date': '2023-11-16', 'tags': ['Programming', 'Tips']} </br> </br>
 
   Результат работы программы: </br>
-  ![image](https://github.com/aliyakr/SP-MP/assets/58439219/b8779a64-c2fb-4835-a6a1-41866ea006fd) </br>
+  ![image](https://github.com/aliyakr/SP-MP/assets/58439219/b8779a64-c2fb-4835-a6a1-41866ea006fd) </br> </br>
 2.1 Данные на вход подаются в виде списка, правятся в коде. </br>
   Входные данные: </br>
   input_channel = ["a", "b", "c", "a", "d", ":reset", "b", "e", "c"] </br> </br>
