@@ -1,21 +1,30 @@
-def unique_values_copy(input_channel, output_channel):
+from queue import Queue
+import threading
+
+def unique_values_copy(input_queue, output_queue):
     unique_values = set()
 
     while True:
-        message = input("Введите значения или :reset для сброса: ")
-        split_values = message.split()
-        for value in split_values:
-            if value.lower() == ":reset":
-                unique_values.clear()
-            else:
-                if value not in unique_values:
-                    unique_values.add(value)
-                    output_channel.append(value)
+        message = input_queue.get()  # Получаем значение из входной очереди
+
+        if message.lower() == ":reset":
+            unique_values.clear()
+        else:
+            if message not in unique_values:
+                unique_values.add(message)
+                output_queue.put(message)  # Добавляем уникальное значение в выходную очередь
                 
-        print("Выходной канал с уникальными значениями:", output_channel)
+        print("Уникальные значения:", unique_values)
 
-# Пример использования:
-input_channel = []
-output_channel = []
+# Пример использования с использованием потоков
+input_queue = Queue()
+output_queue = Queue()
 
-unique_values_copy(input_channel, output_channel)
+# Запускаем функцию unique_values_copy в отдельном потоке
+thread = threading.Thread(target=unique_values_copy, args=(input_queue, output_queue))
+thread.start()
+
+# Ввод данных с клавиатуры и добавление во входную очередь
+while True:
+    user_input = input("Введите значение или :reset для сброса: ")
+    input_queue.put(user_input)

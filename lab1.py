@@ -1,25 +1,23 @@
 from datetime import datetime
+from functools import reduce
 
-def group_and_sort_blog_posts(posts):
-    # Создаем словарь для хранения записей по тегам
-    grouped_posts = {}
+def group_and_sort_blog_posts_recursive(posts, result=None):
+    # Если это первый вызов функции, инициализируем пустой результат
+    if result is None:
+        result = {}
 
-    # Проходимся по каждой записи блога
-    for post in posts:
-        # Проходимся по каждому тегу в записи
-        for tag in post['tags']:
-            # Если тега еще нет в словаре, добавляем его
-            if tag not in grouped_posts:
-                grouped_posts[tag] = []
+    # Функция для обработки одной записи блога
+    def process_post(post, acc):
+        # Разбиваем запись по тегам и добавляем в аккумулятор
+        return reduce(lambda a, t: {**a, t: a.get(t, []) + [post]}, post['tags'], acc)
 
-            # Добавляем запись в соответствующую группу (по тегу)
-            grouped_posts[tag].append(post)
+    # Применяем функцию process_post к каждой записи блога с использованием reduce
+    result = reduce(lambda acc, post: process_post(post, acc), posts, result)
 
-    # Сортируем записи внутри каждой группы по дате
-    for tag, posts in grouped_posts.items():
-        grouped_posts[tag] = sorted(posts, key=lambda x: datetime.strptime(x['date'], '%Y-%m-%d'))
+    # Сортируем записи внутри групп по дате с использованием map
+    result = {tag: sorted(posts, key=lambda x: datetime.strptime(x['date'], '%Y-%m-%d')) for tag, posts in result.items()}
 
-    return grouped_posts
+    return result
 
 # Пример использования
 blog_posts = [
@@ -29,7 +27,7 @@ blog_posts = [
     # ... другие записи блога ...
 ]
 
-grouped_and_sorted_posts = group_and_sort_blog_posts(blog_posts)
+grouped_and_sorted_posts = group_and_sort_blog_posts_recursive(blog_posts)
 
 # Выводим результат
 for tag, posts in grouped_and_sorted_posts.items():
