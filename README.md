@@ -32,7 +32,7 @@ If you want to run the program yourself and/or enter different data, do the foll
   Результат работы программы: </br>
   ![image](https://github.com/aliyakr/SP-MP/assets/58439219/595eb740-daab-490b-b041-1d5eb78bca99) </br>
 
-2.2 Данные вводятся пользователем с клавиатуры через пробел (SPACE). </br>
+2.2 Данные вводятся пользователем с клавиатуры через ввод (ENTER). </br>
   Результат работы программы: </br>
   ![image](https://github.com/aliyakr/SP-MP/assets/58439219/23717449-642c-4392-96f3-01019bbf0326)
 
