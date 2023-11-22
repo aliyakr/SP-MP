@@ -6,7 +6,7 @@
 ## Technologies
 - python 3.9.13
 - Microsoft VS
-- libraries: datetime
+- libraries: datetime, finctools, queue, threading
 
 ## Installation 
 If you want to run the program yourself and/or enter different data, do the following:
